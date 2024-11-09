@@ -1,0 +1,79 @@
+name: AWS workflow
+on:
+  pull_request
+env:
+  BUCKET_NAME : "terraform-backend-alextonkovid"
+  AWS_REGION : "eu-west-3"
+  TF_VAR_ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+permissions:
+  id-token: write   
+  contents: read   
+jobs:
+  terraform-check:
+    name: Terraform Format Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0  
+
+      - name: Run Terraform Format Check
+        run: terraform fmt -check -recursive
+
+  terraform-plan:
+    name: Terraform Plan
+    runs-on: ubuntu-latest
+    needs: terraform-check 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::390844773286:role/GithubActionsRole
+          role-session-name: GithubActionsRole
+          aws-region: ${{ env.AWS_REGION }}
+  
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0
+
+      - name: Initialize Terraform
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan
+
+  terraform-apply:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+    needs: terraform-plan  
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::390844773286:role/GithubActionsRole
+          role-session-name: GithubActionsRole
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Initialize Terraform
+        run: terraform init
+
+
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
