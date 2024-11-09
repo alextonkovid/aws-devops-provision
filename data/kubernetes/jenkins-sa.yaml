@@ -40,7 +40,8 @@ rules:
   - events
   - secrets
   - networkpolicies
-  - PodDisruptionBudget
+  - poddisruptionbudgets
+  - serviceaccounts
   verbs:
   - create
   - get
