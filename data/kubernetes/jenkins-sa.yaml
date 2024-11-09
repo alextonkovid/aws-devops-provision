@@ -49,7 +49,7 @@ rules:
   - delete
   - list
   - patch
-  - update"
+  - update
 - apiGroups:
   - ""
   resources:
