@@ -25,8 +25,8 @@ To deploy Prometheus, you need to run the `terraform apply` command. This will:
 			![alt text](<img/image copy 2.png>)
 2. **Deployment Automation (30 points)**
    - Automation of deployment with IaC or CI/CD pipeline is created.
-			[text](provision.tf)
-			[text](data/bootstrap-k3s.sh)
+			[provision.tf](provision.tf)
+			[bootstrap-k3s.sh](data/bootstrap-k3s.sh)
 
 3. **Web interface is available (10 points)**
    - Metrics can be checked via Prometheus web interface.
