@@ -50,7 +50,7 @@ resource "terraform_data" "bootstrap-k3s" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/data/bootstrap-k3s.sh",
-      "/tmp/data/bootstrap-k3s.sh args",
+      "sudo /tmp/data/bootstrap-k3s.sh args",
     ]
   }
   # For local configs copy
