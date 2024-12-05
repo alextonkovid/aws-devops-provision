@@ -47,6 +47,10 @@ helm upgrade --install prometheus bitnami/kube-prometheus \
   --set prometheus.service.type=NodePort \
   --set prometheus.service.nodePorts.http=32002
 
+# Install Grafana
 
+helm upgrade --install my-grafana bitnami/grafana \
+  --set service.type=NodePort \
+  --set service.nodePorts.grafana=32003
 
 echo "Done!"
