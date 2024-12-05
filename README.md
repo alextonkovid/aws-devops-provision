@@ -106,7 +106,9 @@ Done
 ![alt text](<img/image copy.png>)
 <details>
   <summary>Full screenshot</summary>
+
  ![alt text](<img/image copy 2.png>)
+	
 </details>
 
 - Include a screenshot of the dashboard created.
