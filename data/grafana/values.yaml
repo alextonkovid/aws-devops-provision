@@ -1,0 +1,6 @@
+config:
+  useGrafanaIniFile: true
+  grafanaIniConfigMap: "grafana-ini"
+
+alerting:
+  configMapName: "grafana-contact-points"

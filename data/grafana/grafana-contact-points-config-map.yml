@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-contact-points
+  namespace: monitoring
+data:
+  grafana-mail-contact: |-
+    type: email
+    settings:
+      addresses: alex.tonkovid@gmail.com
+      singleEmail: false
+      message: test
+      subject: |
+        {{ template "default.title" . }}
